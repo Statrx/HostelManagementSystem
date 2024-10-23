@@ -29,12 +29,13 @@ def register(request):
                 else:
                     return HttpResponse('Disabled account')
             else:
-                return HttpResponse('Invalid Login')
+                form.add_error(None, 'Invalid Login')  # Add a general error if login fails
+        # If the form is not valid, it will automatically re-render the form with errors
     else:
         form = UserForm()
-        args = {'form': form}
-        return render(request, 'reg_form.html', args)
 
+    args = {'form': form}
+    return render(request, 'reg_form.html', args)
 
 def user_login(request):
     if request.method == 'POST':
